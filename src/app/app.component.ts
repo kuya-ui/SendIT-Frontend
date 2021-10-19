@@ -19,6 +19,6 @@ export class AppComponent {
   }
   Logout() {
     localStorage.clear()
-    this.router.navigate(['sendit-frontend/']);
+    this.router.navigate(['/']);
   }
 }
