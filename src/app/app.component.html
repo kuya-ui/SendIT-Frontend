@@ -11,8 +11,8 @@
             My account
           </a>
           <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-            <li *ngIf="!is_authenticated"><a class="dropdown-item" href="/login">Login</a></li>
-            <li *ngIf="!is_authenticated"><a class="dropdown-item" href="/signup">Register</a></li>
+            <li *ngIf="!is_authenticated"><a class="dropdown-item" href="sendit-frontend/login">Login</a></li>
+            <li *ngIf="!is_authenticated"><a class="dropdown-item" href="sendit-frontend/signup">Register</a></li>
 
             <li *ngIf="is_authenticated"><a class="dropdown-item" (click)="Logout()">Logout</a></li>
           </ul>
