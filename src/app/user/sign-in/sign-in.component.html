@@ -1,0 +1,34 @@
+<div class="container">
+<div class="row w-75 mx-auto">
+  <h3 class="text-center mt-5">Login</h3>
+<div class="p-5">
+      <div *ngIf="isLoginError" class="text-danger text-center">
+        <i class="fas fa-exclamation-circle"></i> Incorrect username or password
+      </div>
+      <form #loginForm="ngForm" class="" (ngSubmit)="OnSubmit(username.value,password.value)">
+        <div class="row">
+          <div class="form-group col s12 mb-3">
+            <label>Username</label>
+            <input type="text" #username ngModel name="username" class="form-control" placeholder="Username" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col s12 mb-3">
+            <label>Password</label>
+            <input type="password" #password ngModel name="password"  class="form-control" placeholder="Password" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="justify-content-center">
+            <button [disabled]="!loginForm.valid" class="btn btn-primary btn-block" type="submit">Login</button>
+          </div>
+        </div>
+        <div class="mb-3">
+          <p>Don't have an account? <a href="/signup" style="text-decoration: none">Register</a></p>
+        </div>
+      </form>
+</div>
+</div>
+</div>
+
+
