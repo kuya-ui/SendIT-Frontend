@@ -1,68 +1,68 @@
 <div class="row" style="min-height: 100vh">
   <div class="container">
-  <div class="row w-75 mx-auto">
+    <div class="row w-75 mx-auto">
       <div class="col-md-6 col-lg-8 col-12 d-flex justify-content-center align-items-center p-3">
         <div class="">
           <img src="assets/img/account.png" class="img-fluid" alt="image">
         </div>
       </div>
-  <div class="col-md-6 col-lg-4 col-12 d-flex justify-content-center align-items-center p-3">
-    <div class="">
-    <h3 class="text-center mt-5">Register</h3>
-    <div class="p-1">
+      <div class="col-md-6 col-lg-4 col-12 d-flex justify-content-center align-items-center p-3">
+        <div class="">
+          <h3 class="text-center mt-5">Register</h3>
+          <div class="p-1">
 
-      <form class="" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
-        <div class="form-row">
-          <div class="form-group">
-            <div class="mb-3">
-              <label>First Name</label>
-              <input type="text" class=" form-control" name="first_name" #first_name="ngModel"
-                     [(ngModel)]="user.first_name">
-            </div>
-            <div class="mb-3">
-              <label>Last Name</label>
-              <input type="text" class=" form-control" name="last_name" #last_name="ngModel"
-                     [(ngModel)]="user.last_name">
-            </div>
-            <div class="mb-3">
-              <label>Phone Number</label>
-              <input type="text" class=" form-control" name="phonenumber" #phonenumber="ngModel"
-                     [(ngModel)]="user.phonenumber">
-            </div>
-          </div>
-          <div class="form-group mb-3">
-            <label data-error="Required field!">Username</label>
-            <input class="validate form-control" type="text" name="username" #username="ngModel"
-                   [(ngModel)]="user.username" required>
-          </div>
-          <div class="form-group mb-3">
-            <label data-error="Invalid email!">Email</label>
-            <input class="validate form-control" type="text" name="email" #email="ngModel" [(ngModel)]="user.email"
-                   [pattern]="emailPattern">
-          </div>
+            <form class="" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
+              <div class="form-row">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label>First Name</label>
+                    <input type="text" class=" form-control" name="first_name" #first_name="ngModel"
+                           [(ngModel)]="user.first_name">
+                  </div>
+                  <div class="mb-3">
+                    <label>Last Name</label>
+                    <input type="text" class=" form-control" name="last_name" #last_name="ngModel"
+                           [(ngModel)]="user.last_name">
+                  </div>
+                  <div class="mb-3">
+                    <label>Phone Number</label>
+                    <input type="text" class=" form-control" name="phonenumber" #phonenumber="ngModel"
+                           [(ngModel)]="user.phonenumber">
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label data-error="Required field!">Username</label>
+                  <input class="validate form-control" type="text" name="username" #username="ngModel"
+                         [(ngModel)]="user.username" required>
+                </div>
+                <div class="form-group mb-3">
+                  <label data-error="Invalid email!">Email</label>
+                  <input class="validate form-control" type="text" name="email" #email="ngModel" [(ngModel)]="user.email"
+                         [pattern]="emailPattern">
+                </div>
 
-          <div class="form-group mb-3">
-            <label
-              [attr.data-error]="password.errors!=null?(password.errors.required?'Required field!':'Minimum 3 characters needed'):''">Password</label>
-            <input class="validate form-control" type="password" name="password" #password="ngModel"
-                   [(ngModel)]="user.password" required minlength="3">
+                <div class="form-group mb-3">
+                  <label
+                    [attr.data-error]="password.errors!=null?(password.errors.required?'Required field!':'Minimum 3 characters needed'):''">Password</label>
+                  <input class="validate form-control" type="password" name="password" #password="ngModel"
+                         [(ngModel)]="user.password" required minlength="3">
+
+                </div>
+              </div>
+
+
+              <div class="form-row mb-3">
+                <div class="form-group col s12">
+                  <button [disabled]="!userRegistrationForm.valid" class="btn btn-primary btn-submit" type="submit">Submit
+                  </button>
+                </div>
+              </div>
+              <div class="d-flex">
+                <p class="justify-content-center">Have an account? <a href="/login" style="text-decoration: none">Login</a>
+                </p>
+              </div>
+            </form>
 
           </div>
         </div>
-
-
-        <div class="form-row mb-3">
-          <div class="form-group col s12">
-            <button [disabled]="!userRegistrationForm.valid" class="btn btn-primary btn-submit" type="submit">Submit
-            </button>
-          </div>
-        </div>
-        <div class="d-flex">
-          <p class="justify-content-center">Have an account? <a href="/login" style="text-decoration: none">Login</a>
-          </p>
-        </div>
-      </form>
-
-    </div>
-  </div>
-  </div>
+      </div>

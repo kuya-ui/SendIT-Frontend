@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../user.models";
+import {User} from "./user.models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  readonly rootUrl = 'http://127.0.0.1:8000/api/';
+  readonly rootUrl = 'https://restflani.herokuapp.com/api/';
   constructor(private http: HttpClient) {
   }
   registerUser(user: User) {

@@ -1,1 +1,159 @@
-<p>home works!</p>
+<div style="min-height: 100vh;background-image: url('assets/img/sendit back.png')">
+  <div class="container pt-5">
+    <div class="row mx-auto">
+      <button class="btn btn-primary" style="width: 175px" (click)="loadOrderForm()" *ngIf="create_order"><i
+        class="far fa-plus-square"></i>&nbsp; Create an Order
+      </button>
+      <div class="p-5 bg-white pt-5 mt-5 shadow rounded-5" style="z-index: 12;position: relative;" id="order-form"
+           *ngIf="order_form">
+        <div>
+
+          <div class="row mx-auto my-auto">
+            <form class="startLocation py-3 " (ngSubmit)="startPlaceSubmit(address.value)" *ngIf="startloc_form">
+              <h5 class="text-center mb-5 text-primary">Make an Order - Start Location</h5>
+              <label class="small text-primary">Enter Start Location</label>
+              <div class="input-group">
+                <input type="text" #address ngModel name="address" class="form-control" placeholder="Start Location"
+                       required>
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+              <div id="startLocationDetails my-3" style="min-height:100px">
+                <p class="small text-primary mt-3 " style="font-weight: bold" id="start_loc_place_name">
+                  Place: {{start_loc["place_name"]}}</p>
+                <p class="small text-primary" style="font-weight: bold">Co-ordinates: {{start_loc["co_ords"]}}</p>
+              </div>
+              <div class="w-100 mt-3">
+                <button id="startNext" disabled="disabled" class="btn btn-primary w-100" (click)="startPlaceNext()">
+                  Next
+                </button>
+              </div>
+            </form>
+
+            <form class="destination py-3" (ngSubmit)="destinationPlaceSubmit(destination.value)" *ngIf="destloc_form">
+              <h5 class="text-center mb-5 text-primary">Make an Order - Destination</h5>
+              <label class="small text-primary">Enter Destination</label>
+              <div class="input-group">
+                <input type="text" #destination ngModel name="destination" class="form-control"
+                       placeholder="Destination" required>
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+              <div id="destinationDetails mb-3" style="min-height:100px">
+                <p class="small text-primary mt-3 " style="font-weight: bold" id="dest_loc_place_name">
+                  Place: {{dest_loc["place_name"]}}</p>
+                <p class="small text-primary" style="font-weight: bold">Co-ordinates: {{dest_loc["co_ords"]}}</p>
+              </div>
+              <div class="w-100 mt-3 d-flex justify-content-end">
+                <button id="destNext" disabled="disabled" class="btn btn-primary w-100" (click)="destPlaceNext()">Next
+                </button>
+              </div>
+            </form>
+            <div class="price py-3" *ngIf="price_form">
+              <h5 class="text-center mb-5 text-primary">Make an Order - Price / Load Size</h5>
+              <div id="priceDetails mb-3" style="min-height:100px">
+                <label class="text-primary small">Select a load size</label>
+                <select class="form-select mb-3" #loadsize (change)="calculatePrice(loadsize.value)">
+                  <option selected value="Small">Small</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Large">Large</option>
+                </select>
+                <p class="small pt-2 mb-3">Estimated Distance: {{to_fro_distance}} km</p>
+                <p class="small">Cost per kilometer: Ksh {{cost_per_km}}</p>
+                <p class="small">Estimated Price: Ksh {{price}}</p>
+              </div>
+              <div class="w-100 mt-3">
+                <button id="priceNext" class="btn btn-primary w-100" (click)="priceNext(loadsize.value)">Next
+                </button>
+              </div>
+            </div>
+            <form class="orderDetails mb-3" *ngIf="orderdetails_form" (ngSubmit)="createOrder(description.value)">
+              <h5 class="text-center mb-5 text-primary">Make an Order - Order Summary</h5>
+              <div class="form-group mb-3">
+                <p style="font-weight: bold"><span class="text-primary">From: </span> {{start_loc["place_name"]}}</p>
+                <p style="font-weight: bold"><span class="text-primary">To: </span> {{dest_loc["place_name"]}}</p>
+                <p style="font-weight: bold"><span class="text-primary">Load Size:</span> {{load_size}}</p>
+                <p style="font-weight: bold"><span class="text-primary">Distance Covered:</span> {{to_fro_distance}} km
+                </p>
+                <p style="font-weight: bold"><span class="text-primary">Price:</span> Ksh {{price}}</p>
+                <p style="font-weight: bold"><span
+                  class="text-primary">Estimated Arrival Time:</span> {{estimated_arrival_time}} Hours</p>
+              </div>
+              <div class="form-group mb-3">
+                <textarea placeholder="Enter any useful parcel description" name="description" #description rows="3"
+                          class="form-control" required="required"></textarea>
+              </div>
+              <div class="w-100 mt-3">
+                <button class="btn btn-primary w-100" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-5 bg-white pt-5 mt-5 shadow rounded-5" style="z-index: 12;position: relative;" id="my_orders"
+           *ngIf="my_orders">
+        <h5 class="text-primary"><i class="fas fa-stream"></i>&nbsp; My Orders ({{my_django_orders.length}})</h5>
+        <div>
+          <div class="" *ngIf="yes_orders">
+
+            <div *ngFor="let entry of my_django_orders">
+              <div class="order-tile p-2 px-3 border rounded-2 mb-3">
+                <div class="order-heading d-flex justify-content-between font-weight-bold" style="font-weight: bold">
+                  <span>{{entry["fields"]["created_at"]|date}}</span>
+                  <span>Status: {{entry["fields"]["transit_status"]}}</span>
+                </div>
+                <div class="order-details small pt-3">
+                  <p ><span class="text-primary">From: </span> {{entry["fields"]["start_location_name"]}}</p>
+                  <p ><span class="text-primary">To: </span> {{entry["fields"]["destination_location_name"]}}</p>
+                  <p ><span class="text-primary">Load Size:</span> {{entry["fields"]["load_size"]}}</p>
+                  <p ><span class="text-primary">Price:</span> Ksh {{entry["fields"]["price"]}}</p>
+                  <p ><span  class="text-primary">Estimated Arrival Time:</span> {{entry["fields"]["estimated_arrival_time"]}} Hours</p>
+                  <p ><span  class="text-primary">Description: </span> {{entry["fields"]["description"]}}</p>
+                  <input  value='{{entry["pk"]}}' #entry_id style="visibility: hidden">
+                  <p class="d-flex justify-content-between">
+                    <button class="btn btn-outline-primary btn-sm" style="width:175px" (click)="toggleNewDestinationForm(entry_id.value)">Change destination</button>
+                    <button class="btn btn-outline-danger btn-sm" style="width:175px" (click)="cancelOrder(entry_id.value)">Cancel order</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="order-tile p-5 px-3 border rounded-2 mb-3" *ngIf="no_orders">
+            <div class="order-heading text-center">
+              <p class="small">You have no orders</p>
+              <button class="btn btn-outline-primary mx-auto" style="width: 175px" (click)="loadOrderForm()"><i
+                class="far fa-plus-square"></i>&nbsp; Create an Order
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="p-5 bg-white pt-5 mt-5 shadow rounded-5" style="z-index: 12;position: relative;" id="dest_change" *ngIf="dest_change">
+        <form class="destination py-3" (ngSubmit)="getNewDestination(new_destination_input.value)" >
+          <h5 class="text-center mb-5 text-primary">Choose a new Destination</h5>
+          <label class="small text-primary">Enter Destination</label>
+          <div class="input-group">
+            <input type="text" #new_destination_input name="destination" class="form-control"
+                   placeholder="Destination" required>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+          <div style="min-height:100px">
+            <input value="{{change_destination_order_id}}" #change_destination_order_id_input style="visibility: hidden">
+            <p class="small text-primary mt-3 " style="font-weight: bold">
+              Place: {{new_destination["place_name"]}}</p>
+            <p class="small text-primary" style="font-weight: bold">Co-ordinates: {{new_destination["co_ords"]}}</p>
+          </div>
+          <div class="w-100 mt-3 d-flex justify-content-end">
+            <button disabled="disabled" class="btn btn-primary w-100" id="change_destination_button" (click)="changeDestination(change_destination_order_id_input.value)">Change</button>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
